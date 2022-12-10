@@ -16,7 +16,13 @@ moving_right = False
 moving_up = False
 moving_down = False
 
-player = Character(100, 100)
+player_image = pygame.image.load(
+        "assets/images/characters/elf/idle/0.png").convert_alpha()
+player_image = pygame.transform.scale(player_image,
+        (player_image.get_width() * constants.SCALE, 
+            player_image.get_height() * constants.SCALE))
+
+player = Character(100, 100, player_image)
 
 run = True
 while run:
@@ -28,13 +34,13 @@ while run:
     dx = 0
     dy = 0
     if moving_right == True:
-        dx = 1
+        dx = constants.SPEED
     if moving_left == True:
-        dx = -1
+        dx = -constants.SPEED
     if moving_up == True:
-        dy = -1
+        dy = -constants.SPEED
     if moving_down == True:
-        dy = 1
+        dy = constants.SPEED 
 
     player.move(dx, dy)
 
