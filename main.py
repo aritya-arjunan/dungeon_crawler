@@ -16,11 +16,17 @@ moving_right = False
 moving_up = False
 moving_down = False
 
+facing_left = False
+facing_down = False
+
+def scale_img(image, scale):
+    w = image.get_width()
+    h = image.get_height()
+    return pygame.transform.scale(image, (w * scale, h * scale))
+
 player_image = pygame.image.load(
         "assets/images/characters/elf/idle/0.png").convert_alpha()
-player_image = pygame.transform.scale(player_image,
-        (player_image.get_width() * constants.SCALE, 
-            player_image.get_height() * constants.SCALE))
+player_image = scale_img(player_image, constants.SCALE)
 
 player = Character(100, 100, player_image)
 
@@ -44,7 +50,7 @@ while run:
 
     player.move(dx, dy)
 
-    player.draw(screen)
+    player.draw(screen, facing_left, facing_down)
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -52,12 +58,16 @@ while run:
 
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
+                facing_left = True
                 moving_left = True
             elif event.key == pygame.K_d:
+                facing_left = False
                 moving_right = True
             elif event.key == pygame.K_w:
+                facing_down = False
                 moving_up = True
             elif event.key == pygame.K_s:
+                facing_down = True
                 moving_down = True
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_a:

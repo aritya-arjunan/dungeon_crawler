@@ -4,6 +4,7 @@ import math
 
 class Character():
     def __init__(self, x, y, image):
+        self.flip = False
         self.image = image
         self.rect = pygame.Rect(0, 0, 40, 40)
         self.rect.center = (x, y)
@@ -17,6 +18,8 @@ class Character():
         self.rect.x += dx
         self.rect.y += dy
     
-    def draw(self, canvas):
-        canvas.blit(self.image, self.rect)
+    def draw(self, canvas, facing_left, facing_down):
+        flipped_image = pygame.transform.flip(self.image, facing_left,
+                facing_down)
+        canvas.blit(flipped_image, self.rect)
         pygame.draw.rect(canvas, constants.DARK_PURPLE, self.rect, 1)
